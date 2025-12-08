@@ -68,5 +68,9 @@ RUBRICS = {
         0: "Content is somewhat relevant but contains unnecessary or unfocused parts.",
         1: "Content is relevant and contributes meaningfully to the topic.",
         2: "Content is highly relevant, targeted, and fully aligned with the topic."
+    },
+    "Generation Quality": {
+        0: "Generated output is incoherent and of bad English quality",
+        1: "Generated output is coherent and of good English quality"
     }
 }

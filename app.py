@@ -185,8 +185,12 @@ if st.session_state.data is not None:
                     
                     st.markdown(f"**{rubric_name}**")
                     
-                    options = [-2, -1, 0, 1, 2]
-                    default_index = options.index(current_val) if current_val in options else 2
+                    if rubric_name == "Generation Quality":
+                        options = [0, 1]
+                        default_index = options.index(current_val) if current_val in options else 0
+                    else:
+                        options = [-2, -1, 0, 1, 2]
+                        default_index = options.index(current_val) if current_val in options else 2
 
                     score = st.radio(
                         label=f"Score for {rubric_name}",
