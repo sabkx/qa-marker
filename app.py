@@ -136,6 +136,7 @@ if st.session_state.data is not None:
             with c2:
                 st.markdown("### Ground Truth Answer")
                 st.success(row.get('answer', 'N/A'))
+                st.markdown(f"Number of words in Ground Truth answer: {len(row.get('answer', 'N/A').split(' '))}")
 
         st.markdown("---")
         
@@ -153,6 +154,9 @@ if st.session_state.data is not None:
             f"""
             <div style="padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
                 {model_answer}
+            </div>
+            <div>
+                Number of words in model's answer: {len(model_answer.split(" "))}
             </div>
             """, 
             unsafe_allow_html=True
