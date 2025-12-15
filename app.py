@@ -129,38 +129,57 @@ if st.session_state.data is not None:
         with st.expander("Show Context & Ground Truth", expanded=True):
             c1, c2 = st.columns(2)
             with c1:
-                st.markdown("### Context (Text Chunk)")
-                st.info(row.get('text_chunk', 'N/A'))
                 st.markdown("### Question")
                 st.warning(row.get('question', 'N/A'))
+                st.markdown("### Context (Text Chunk)")
+                st.info(row.get('text_chunk', 'N/A'))
             with c2:
                 st.markdown("### Ground Truth Answer")
                 st.success(row.get('answer', 'N/A'))
                 st.markdown(f"Number of words in Ground Truth answer: {len(row.get('answer', 'N/A').split(' '))}")
 
+                st.markdown(f"### Generated Answer: `{target_model}`")
+                model_answer = row.get(target_model, "")
+                
+                # Handle potential float/nan values in answer
+                if pd.isna(model_answer):
+                    model_answer = "(Empty/NaN)"
+                else:
+                    model_answer = str(model_answer)
+                st.markdown(
+                    f"""
+                    <div style="padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+                        {model_answer}
+                    </div>
+                    <div>
+                        Number of words in model's answer: {len(model_answer.split(" "))}
+                    </div>
+                    """, 
+                    unsafe_allow_html=True
+                )
         st.markdown("---")
         
-        # Display Model Answer
-        st.markdown(f"### Generated Answer: `{target_model}`")
-        model_answer = row.get(target_model, "")
+        # # Display Model Answer
+        # st.markdown(f"### Generated Answer: `{target_model}`")
+        # model_answer = row.get(target_model, "")
         
-        # Handle potential float/nan values in answer
-        if pd.isna(model_answer):
-            model_answer = "(Empty/NaN)"
-        else:
-            model_answer = str(model_answer)
+        # # Handle potential float/nan values in answer
+        # if pd.isna(model_answer):
+        #     model_answer = "(Empty/NaN)"
+        # else:
+        #     model_answer = str(model_answer)
             
-        st.markdown(
-            f"""
-            <div style="padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
-                {model_answer}
-            </div>
-            <div>
-                Number of words in model's answer: {len(model_answer.split(" "))}
-            </div>
-            """, 
-            unsafe_allow_html=True
-        )
+        # st.markdown(
+        #     f"""
+        #     <div style="padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+        #         {model_answer}
+        #     </div>
+        #     <div>
+        #         Number of words in model's answer: {len(model_answer.split(" "))}
+        #     </div>
+        #     """, 
+        #     unsafe_allow_html=True
+        # )
         
         st.markdown("---")
         st.subheader("Rubric Scoring")
