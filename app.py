@@ -132,10 +132,40 @@ if st.session_state.data is not None:
                 st.markdown("### Question")
                 st.warning(row.get('question', 'N/A'))
                 st.markdown("### Context (Text Chunk)")
-                st.info(row.get('text_chunk', 'N/A'))
+                # st.info(row.get('text_chunk', 'N/A'))
+                st.markdown(
+                    f"""
+                <div style="
+                    border: 1px solid #007bff;
+                    padding: 0.75rem;
+                    border-radius: 4px;
+                    background-color: #e9f5ff;
+                    color: #0c5460;
+                    font-size: 14px;
+                    font-size: 1rem;
+                ">
+                <pre style="margin: 0; white-space: pre-wrap;">{row.get('text_chunk', 'N/A')}</pre>
+                </div>
+                """,
+                    unsafe_allow_html=True
+                )
             with c2:
                 st.markdown("### Ground Truth Answer")
-                st.success(row.get('answer', 'N/A'))
+                # st.success(row.get('answer', 'N/A'))
+                st.markdown(
+                    f"""
+                    <div style="
+                        background-color: #e6ffed;
+                        border: 1px solid #2eb82e;
+                        padding: 10px;
+                        border-radius: 4px;
+                        font-family: sans-serif;
+                        white-space: pre-wrap;
+                        font-size: 1rem;
+                    ">{row.get('answer', 'N/A')}</div>
+                    """,
+                    unsafe_allow_html=True,
+                )
                 st.markdown(f"Number of words in Ground Truth answer: {len(row.get('answer', 'N/A').split(' '))}")
 
                 st.markdown(f"### Generated Answer: `{target_model}`")
